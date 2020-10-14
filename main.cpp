@@ -199,6 +199,37 @@ void TrimList(LinkedList &L) {
     }
 }
 
+/*-------------- 单链表翻转 -----------------*/
+//头插法
+void reverseList1(LinkedList &L){
+    LinkedList p=L->next,q;
+    L->next=NULL;
+    while (p){
+        q=p->next;          //防止断链，保存后续链表
+        p->next=L->next;    //头插
+        L->next=p;
+        p=q;                //后移指针
+    }
+}
+
+//翻转指针
+void reverseList2(LinkedList &L){
+    LinkedList pre=L->next,p,post;
+    if (!pre){
+        return;
+    }
+    p=pre->next;        //从第二个结点开始
+    pre->next=NULL;     //第一个结点作为尾结点
+    while (p){
+        post=p->next;   //防止断链，保存后续链表
+        p->next=pre;    //翻转指针指向
+        pre=p;          //后移指针
+        p=post;
+    }
+    L->next=pre;        //修改头结点
+}
+
+
 int main() {
 
     LinkedList La, Lb, Lc;
@@ -207,6 +238,8 @@ int main() {
     printList(La);
     //printList(Lb);
     TrimList(La);
+    printList(La);
+    reverseList2(La);
     printList(La);
     //MergeList(La,Lb,Lc);
     //MergeListNewNode(La, Lb, Lc);
